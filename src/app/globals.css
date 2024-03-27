@@ -31,3 +31,9 @@ body {
     text-wrap: balance;
   }
 }
+
+.backimage{
+  background-image: url(./assets/cloud.png);
+  background-size: 100%;
+
+}
