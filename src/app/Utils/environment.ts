@@ -1,0 +1,1 @@
+// export const weatherKey: string = "c7c14ffa0ae0ecde70760ca1866e035c"

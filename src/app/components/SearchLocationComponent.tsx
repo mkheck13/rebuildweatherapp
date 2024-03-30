@@ -14,19 +14,7 @@ const SearchLocationComponent: React.FC<SearchLocationProps> = ({ onClose }) => 
         </button>
       </div>
 
-      <div className="flex justify-between my-5 space-x-4">
-        <input
-          type="text"
-          className="border border-gray-150 bg-transparent p-3 flex-grow"
-          placeholder="search location"
-        />
 
-      </div>
-      <div>
-                <button className="bg-[#3C47E9] py-3 px-5 hover:bg-[#3C47E9]/70">
-          Search
-        </button>
-      </div>
 
       <div className="mt-20">
         <button className="hover:border border-gray-250 px-4 py-6 w-full flex justify-between">
