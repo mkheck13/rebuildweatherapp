@@ -1,5 +1,6 @@
 import { ICity, IForecast, IGeocode, IWeather, cities } from "../interfaces/interface";
 
+
 export const getWeather = async(lat: number , lng: number) => {
     const promise = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=imperial&appid=${process.env.NEXT_PUBLIC_MY_API_KEY}`);
       const data: IWeather = await promise.json();

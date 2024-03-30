@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { IForecast, position } from "../interfaces/interface";
 import { getLocal } from "../Utils/Localstorage";
 import { getForecast } from "../dataservices/dataservices";
-// import { weatherKey } from "../Utils/environment";
 import Image, { StaticImageData } from "next/image";
 import sun from "@/app/assets/sun.png";
 import cloud from "@/app/assets/cloud.png";
@@ -18,6 +17,8 @@ import wind from "@/app/assets/wind.png";
 import SmallCard from "./SmallCardComponent";
 
 const MainComponent = ({ lat, lng }: position) => {
+
+  // const apiKey = process.env.NEXT_PUBLIC_MY_API_KEY;
 
   const [dayOne, setDayOne] = useState<string>("");
   const [dayOneHigh, setDayOneHigh] = useState<number>(0);

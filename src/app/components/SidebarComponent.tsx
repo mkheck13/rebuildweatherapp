@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import MainComponent from "./MainComponent";
 import SearchLocation from "./SearchLocationComponent";
 import sun from "@/app/assets/sun.png";
 import cloud from "@/app/assets/cloud.png";
@@ -24,9 +25,12 @@ import {
   getWeatherBySearch,
 } from "@/app/dataservices/dataservices";
 import { getLocal, saveLocal, removeLocal } from "@/app/Utils/Localstorage";
-// import { weatherKey } from "../Utils/environment";
+
 
 const SidebarComponent = () => {
+
+  // const apiKey = process.env.NEXT_PUBLIC_MY_API_KEY;
+  
   const [isOpen, setIsOpen] = useState(false);
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);
@@ -49,27 +53,35 @@ const SidebarComponent = () => {
   const [favCity, setFavCity] = useState<string>("");
   const [isFav, setIsFav] = useState<boolean>(false);
   const [favImg, setFavImg] = useState<string | StaticImageData>(notFavStar);
+  const [favArry, setFavArr] = useState<string[]>([])
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setLat(position.coords.latitude);
-        setLng(position.coords.longitude);
-      });
+
+     if (searchCity === "") {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          setLat(position.coords.latitude);
+          setLng(position.coords.longitude);
+        });
+      } else {
+        console.log("Geolocation is not supported on your browser.");
+      }
     } else {
-      console.log("Geolocation is not supported on your browser.");
+      if (searchCity !== "") {
+        const getCoords = async () => {
+          const data = await getWeatherBySearch(searchCity);
+            console.log(data.lon)
+          setLat(data.lat);
+          setLng(data.lon);
+          setFavImg(favImg)
+        };
+
+        getCoords();
+      }
     }
 
-    if (searchCity !== "") {
-      const getCoords = async () => {
-        const data = await getWeatherBySearch(input);
-
-        setLat(data.lat);
-        setLng(data.lon);
-      };
-
-      getCoords();
-    }
+    let favorites = getLocal();
+   setFavArr(favorites)
 
     const getCurrentWeather = async () => {
       const data = await getWeather(lat, lng);
@@ -177,9 +189,7 @@ const SidebarComponent = () => {
     getCurrentCity();
   }, [lat, lng]);
 
-  const toggleDrawer = () => {
-    setIsOpen(!isOpen);
-  };
+
 
   const handleFav = () => {
     setIsFav(!isFav);
@@ -232,19 +242,7 @@ const SidebarComponent = () => {
           </div>
       {/* search */}
 
-          {/* <div className="relative -mx-36 flex justify-center items-center max-h-40">
-            <img src="/images/Shower.png" alt="weather" className="max-h-48" />
-          </div>
 
-          <div className="flex flex-col items-center justify-between flex-grow pt-6">
-            <h1 className="text-gray-150 text-[144px] font-medium">
-              15<span className="text-5xl text-gray-250">&deg;C</span>
-            </h1>
-            <h3 className="font-semibold text-4xl text-gray-250">Shower</h3>
-            <div className="flex flex-col items-center text-center text-gray-350 text-lg space-y-5">
-              <p>Today &bull; Fri 5 Jun</p>
-            </div>
-          </div> */}
 
 <div className="bg-[#CAE8FF] w-1/4 h-96 opacity-75 rounded-xl mr-10">
             <div className="">
